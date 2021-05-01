@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { CustomersHostComponent } from './customers-host/customers-host.component';
 import { CustomersListComponent } from './customers-list/customers-list.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CustomerDetailsComponent } from './customer-details/customer-details.co
     CustomerDetailsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
