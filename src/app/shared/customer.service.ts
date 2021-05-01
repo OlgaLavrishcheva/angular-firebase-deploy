@@ -10,7 +10,9 @@ const httpOptions = {headers: new HttpHeaders({'Content-Tipe': 'application/json
 })
 export class CustomerService {
 
-  constructor(private  http: HttpClient) {
+  customers: Customer[] = [];
+
+  constructor(private http: HttpClient) {
   }
 
 // CRUD
@@ -32,7 +34,21 @@ export class CustomerService {
 
 // read = GET
   getData(): void {
+    this.http.get<Customer[]>(`${url}.json`, httpOptions).subscribe(
+      res => {
+        console.log(res);
 
+        Object.keys(res).forEach(key => {
+          // console.log(key);
+          // console.log(res[key]);
+          const obj = Object.assign({}, res[key]);
+          obj.key = key;
+
+          this.customers.push(obj);
+          console.log(this.customers);
+        })
+      }
+    )
   }
 
 // update = PUT/PATCH

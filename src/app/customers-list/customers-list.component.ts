@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CustomerService} from "../shared/customer.service";
 
 @Component({
   selector: 'app-customers-list',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomersListComponent implements OnInit {
 
-  constructor() { }
+  constructor(public svc: CustomerService) { }
 
   ngOnInit(): void {
+    this.svc.getData()
   }
 
 }

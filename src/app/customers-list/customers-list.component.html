@@ -1,1 +1,24 @@
 <h2>Список покупателей</h2>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Имя</th>
+    <th scope="col">Мейл</th>
+    <th scope="col">Телефон</th>
+    <th scope="col">Город</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let customer of svc.customers; let i = index">
+    <th scope="row">{{i + 1}}</th>
+    <td>{{customer.name}}</td>
+    <td>{{customer.email}}</td>
+    <td>{{customer.mobile}}</td>
+    <td>{{customer.location}}</td>
+  </tr>
+  </tbody>
+</table>
+
