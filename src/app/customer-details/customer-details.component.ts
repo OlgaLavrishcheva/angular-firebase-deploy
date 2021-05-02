@@ -8,10 +8,14 @@ import {CustomerService} from "../shared/customer.service";
 })
 export class CustomerDetailsComponent implements OnInit {
 
-  constructor(private svc: CustomerService) { }
+  constructor(public svc: CustomerService) { }
 
   ngOnInit(): void {
     // this.svc.createData();
+  }
+
+  onSubmit(): void {
+
   }
 
 }
