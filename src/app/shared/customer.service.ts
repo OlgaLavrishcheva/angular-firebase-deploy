@@ -29,7 +29,9 @@ export class CustomerService {
     const customer = this.form.value
     this.http.post<Customer>(`${url}.json`, customer, httpOptions).subscribe(
       res => {
-        console.log(res)
+        customer.key = res.name;
+        this.customers.push(customer)
+        console.log(this.customers)
       }
     )
   }
