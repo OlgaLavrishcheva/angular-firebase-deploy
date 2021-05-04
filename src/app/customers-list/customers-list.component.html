@@ -9,9 +9,11 @@
 
   <tbody>
     <tr *ngFor="let customer of svc.customers; let i = index">
-      <th scope="row">{{i + 1}}</th>
+      <th class="align-middle" scope="row">{{i + 1}}</th>
 
-      <ng-container *ngTemplateOutlet="tableBodyBlock; context: {$implicit: customer}"></ng-container>
+<!--      <ng-container *ngTemplateOutlet="elseBlock; context: {$implicit: customer}"></ng-container>-->
+      <ng-container *ngTemplateOutlet="isEditPosition === i ? thenBlock : elseBlock; context: {$implicit: customer}"></ng-container>
+
     </tr>
   </tbody>
 </table>
@@ -22,9 +24,25 @@
   <th scope="col">Email</th>
   <th scope="col">Телефон</th>
   <th scope="col">Город</th>
+
 </ng-template>
 
-<ng-template #tableBodyBlock let-customer>
+<ng-template #thenBlock let-customer>
+  <td class="align-middle">
+    <input class="form-control form-control-lg" type="text" value="{{customer.name}}">
+  </td>
+  <td class="align-middle">
+    <input class="form-control form-control-lg" type="text" value="{{customer.email}}">
+  </td>
+  <td class="align-middle">
+    <input class="form-control form-control-lg" type="text" value="{{customer.mobile}}">
+  </td>
+  <td class="align-middle">
+    <input class="form-control form-control-lg" type="text" value="{{customer.location}}">
+  </td>
+ </ng-template>
+
+<ng-template #elseBlock let-customer>
   <td>{{customer.name}}</td>
   <td>{{customer.email}}</td>
   <td>{{customer.mobile}}</td>

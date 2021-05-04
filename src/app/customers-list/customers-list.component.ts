@@ -7,6 +7,7 @@ import {CustomerService} from "../shared/customer.service";
   styleUrls: ['./customers-list.component.scss']
 })
 export class CustomersListComponent implements OnInit {
+  isEditPosition: null | number;
 
   constructor(public svc: CustomerService) { }
 
