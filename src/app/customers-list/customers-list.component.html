@@ -2,22 +2,31 @@
 
 <table class="table">
   <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Имя</th>
-    <th scope="col">Email</th>
-    <th scope="col">Телефон</th>
-    <th scope="col">Город</th>
-  </tr>
+    <tr>
+      <ng-container *ngTemplateOutlet="tableHeadBlock"></ng-container>
+    </tr>
   </thead>
 
   <tbody>
-  <tr *ngFor="let customer of svc.customers; let i = index">
-    <th scope="row">{{i + 1}}</th>
-    <td>{{customer.name}}</td>
-    <td>{{customer.email}}</td>
-    <td>{{customer.mobile}}</td>
-    <td>{{customer.location}}</td>
-  </tr>
+    <tr *ngFor="let customer of svc.customers; let i = index">
+      <th scope="row">{{i + 1}}</th>
+
+      <ng-container *ngTemplateOutlet="tableBodyBlock; context: {$implicit: customer}"></ng-container>
+    </tr>
   </tbody>
 </table>
+
+<ng-template #tableHeadBlock>
+  <th scope="col">#</th>
+  <th scope="col">Имя</th>
+  <th scope="col">Email</th>
+  <th scope="col">Телефон</th>
+  <th scope="col">Город</th>
+</ng-template>
+
+<ng-template #tableBodyBlock let-customer>
+  <td>{{customer.name}}</td>
+  <td>{{customer.email}}</td>
+  <td>{{customer.mobile}}</td>
+  <td>{{customer.location}}</td>
+</ng-template>
