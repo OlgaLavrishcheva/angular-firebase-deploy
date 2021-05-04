@@ -2,19 +2,24 @@
 
 <table class="table">
   <thead>
-    <tr>
-      <ng-container *ngTemplateOutlet="tableHeadBlock"></ng-container>
-    </tr>
+  <tr>
+    <ng-container *ngTemplateOutlet="tableHeadBlock"></ng-container>
+  </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let customer of svc.customers; let i = index">
-      <th class="align-middle" scope="row">{{i + 1}}</th>
+  <tr *ngFor="let customer of svc.customers; let i = index">
+    <th class="align-middle" scope="row">{{i + 1}}</th>
+    <ng-container
+      *ngTemplateOutlet="isEditPosition === i ? thenBlock : elseBlock; context: {$implicit: customer}"></ng-container>
 
-<!--      <ng-container *ngTemplateOutlet="elseBlock; context: {$implicit: customer}"></ng-container>-->
-      <ng-container *ngTemplateOutlet="isEditPosition === i ? thenBlock : elseBlock; context: {$implicit: customer}"></ng-container>
-
-    </tr>
+    <td>
+      <button class="btn btn-outline-info btn-sm mr-2"><i class="fas fa-edit"></i></button>
+      <button class="btn btn-outline-info btn-sm mr-2"><i class="fas fa-undo"></i></button>
+      <button class="btn btn-outline-info btn-sm mr-2"><i class="fas fa-save"></i></button>
+      <button class="btn btn-outline-info btn-sm mr-2"><i class="fas fa-trash"></i></button>
+    </td>
+  </tr>
   </tbody>
 </table>
 
@@ -24,7 +29,7 @@
   <th scope="col">Email</th>
   <th scope="col">Телефон</th>
   <th scope="col">Город</th>
-
+  <th></th>
 </ng-template>
 
 <ng-template #thenBlock let-customer>
@@ -40,7 +45,7 @@
   <td class="align-middle">
     <input class="form-control form-control-lg" type="text" value="{{customer.location}}">
   </td>
- </ng-template>
+</ng-template>
 
 <ng-template #elseBlock let-customer>
   <td>{{customer.name}}</td>
