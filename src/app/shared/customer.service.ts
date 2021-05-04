@@ -26,14 +26,11 @@ export class CustomerService {
 // CRUD
 // create = POST
   createData(): void {
-    const customer = this.form.value
+    const customer = this.form.value;
     this.http.post<Customer>(`${url}.json`, customer, httpOptions).subscribe(
-      res => {
-        customer.key = res.name;
-        this.customers.push(customer)
-        console.log(this.customers)
-      }
-    )
+      res => this.customers.push({...customer, ...{key: res.name}}),
+      err => console.log(err)
+    );
   }
 
 // read = GET
