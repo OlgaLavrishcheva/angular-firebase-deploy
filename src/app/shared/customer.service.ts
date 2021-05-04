@@ -13,6 +13,7 @@ export class CustomerService {
 
   customers: Customer[] = [];
   form = this.fb.group({
+    key: [''],
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     mobile: ['', [Validators.required, Validators.minLength(8)]],
@@ -25,14 +26,8 @@ export class CustomerService {
 // CRUD
 // create = POST
   createData(): void {
-    const temp: Customer = {
-      name: 'Mary',
-      email: 'mary@gmail.com',
-      mobile: '12341111',
-      location: 'Somewhere'
-    };
-
-    this.http.post<Customer>(`${url}.json`, temp, httpOptions).subscribe(
+    const customer = this.form.value
+    this.http.post<Customer>(`${url}.json`, customer, httpOptions).subscribe(
       res => {
         console.log(res)
       }
@@ -43,11 +38,7 @@ export class CustomerService {
   getData(): void {
     this.http.get<Customer[]>(`${url}.json`, httpOptions).subscribe(
       res => {
-        console.log(res);
-
         Object.keys(res).forEach(key => {
-          // console.log(key);
-          // console.log(res[key]);
           const obj = Object.assign({}, res[key]);
           obj.key = key;
 
