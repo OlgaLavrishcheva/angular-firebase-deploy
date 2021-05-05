@@ -13,16 +13,7 @@
     <ng-container
       *ngTemplateOutlet="isEditPosition === i ? thenBlock : elseBlock; context: {$implicit: customer}"></ng-container>
 
-    <td>
-      <button *ngIf="isEditPosition !==i" class="btn btn-outline-info btn-sm mr-2"
-              (click)="editMode(i)"><i class="fas fa-edit"></i></button>
-      <button *ngIf="isEditPosition ===i" class="btn btn-outline-info btn-sm mr-2"
-              (click)="cancelEdit()"><i class="fas fa-undo"></i></button>
-      <button *ngIf="isEditPosition ===i" class="btn btn-outline-info btn-sm mr-2"
-              (click)="saveCustomer(customer, i)"><i class="fas fa-save"></i></button>
-      <button class="btn btn-outline-info btn-sm mr-2"
-              (click)="deleteCustomer(customer)"><i class="fas fa-trash"></i></button>
-    </td>
+    <ng-container *ngTemplateOutlet="customControlsBlock; context: {customer: customer, index: i}" ></ng-container>
   </tr>
   </tbody>
 </table>
@@ -60,4 +51,17 @@
   <td>{{customer.email}}</td>
   <td>{{customer.mobile}}</td>
   <td>{{customer.location}}</td>
+</ng-template>
+
+<ng-template #customControlsBlock let-customer="customer" let-i="index">
+  <td>
+    <button *ngIf="isEditPosition !==i" class="btn btn-outline-info btn-sm mr-2"
+            (click)="editMode(i)"><i class="fas fa-edit"></i></button>
+    <button *ngIf="isEditPosition ===i" class="btn btn-outline-info btn-sm mr-2"
+            (click)="cancelEdit()"><i class="fas fa-undo"></i></button>
+    <button *ngIf="isEditPosition ===i" class="btn btn-outline-info btn-sm mr-2"
+            (click)="saveCustomer(customer, i)"><i class="fas fa-save"></i></button>
+    <button class="btn btn-outline-info btn-sm mr-2"
+            (click)="deleteCustomer(customer)"><i class="fas fa-trash"></i></button>
+  </td>
 </ng-template>

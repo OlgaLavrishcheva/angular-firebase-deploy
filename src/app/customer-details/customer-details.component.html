@@ -3,9 +3,9 @@
 <form [formGroup]="svc.form" (ngSubmit)="onSubmit()">
 
   <div class="form-group">
-  <label for="name">Имя</label>
+    <label for="name">Имя</label>
     <input class="form-control" type="text" id="name" placeholder="Имя Фамилия"
-    formControlName="name">
+           formControlName="name">
   </div>
 
   <div class="form-group">
@@ -31,3 +31,19 @@
   </div>
 
 </form>
+
+<p>
+  {{svc.form.controls.key.value}} <br>
+  {{svc.form.controls.name.value}} <br>
+  {{svc.form.controls.email.value}} <br>
+  {{svc.form.controls.mobile.value}} <br>
+  {{svc.form.controls.location.value}} <br>
+</p>
+
+<p>
+  {{key.value}} <br>
+  {{name.value}} <br>
+  {{email.value}} <br>
+  {{mobile.value}} <br>
+  {{location.value}} <br>
+</p>
