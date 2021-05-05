@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Customer} from "./customer";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Observable} from "rxjs";
 
 const url = 'https://angular-firebase-deploy-6c3f4-default-rtdb.firebaseio.com/customers';
 const httpOptions = {headers: new HttpHeaders({'Content-Tipe': 'application/json'})};
@@ -23,6 +24,29 @@ export class CustomerService {
   constructor(private http: HttpClient, private fb: FormBuilder) {
   }
 
+  resetCustomer(customer: Customer): Customer {
+    customer = {
+      key: null,
+      name: null,
+      email: null,
+      mobile: null,
+      location: null
+    };
+    return  customer;
+  }
+
+  mergeCustomerProps(customer: Customer, temp: Customer): Customer | any {
+    const result = {...customer};
+
+
+    Object.keys(temp).forEach(key => {
+      if (temp[key]) {
+        result[key] = temp[key];
+      }
+    });
+    return result;
+  }
+
 // CRUD
 // create = POST
   createData(): void {
@@ -42,19 +66,23 @@ export class CustomerService {
           obj.key = key;
 
           this.customers.push(obj);
-          console.log(this.customers);
         })
       }
     )
   }
 
 // update = PUT/PATCH
-  update(): any {
+  update(customer: Customer): Observable<Customer> | any {
+    const {key, ...ctm} = customer;
 
+    return this.http.put<Customer>(`${url}/${key}.json`, ctm, httpOptions);
   }
 
 // delete = DELETE
-  delete(): void {
-
+  delete(customer: Customer): void {
+    this.http.delete<void>(`${url}/${customer.key}.json`, httpOptions).subscribe(
+      () => this.customers.splice(this.customers.indexOf(customer), 1),
+      err => console.log(err)
+    )
   }
 }
